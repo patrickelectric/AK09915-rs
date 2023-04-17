@@ -109,19 +109,20 @@ where
         Ok(())
     }
 
-    //     9.4.4.1. Self-test Sequence
-    // (1)Set Power-down mode. (MODE[4:0] bits = “00000”)
-    // (2)Set Self-test mode. (MODE[4:0] bits = “10000”)
-    // (3)Check Data Ready or not by any of the following method.
-    // Polling DRDY bit of ST1 register
-    // Monitor DRDY pin
-    // When Data Ready, proceed to the next step.
-    // (4)Read measurement data (HXL to HZH)
-    // 9.4.4.2. Self-test Judgment
-    // When measurement data read by the above sequence is in the range of following table, AK09915 is working
-    // normally.
-    // HX[15:0] bits HY[15:0] bits HZ[15:0] bits
-    // Criteria -200 ≤HX≤ +200 -200 ≤HY≤ +200 -800 ≤HZ≤ -200
+    // 9.4.4.1. Self-test Sequence:
+    //   1. Set Power-down mode (MODE[4:0] bits = "00000").
+    //   2. Set Self-test mode (MODE[4:0] bits = "10000").
+    //   3. Check Data Ready by:
+    //      - Polling DRDY bit of ST1 register.
+    //      - Monitoring DRDY pin.
+    //      When Data Ready, proceed to the next step.
+    //   4. Read measurement data (HXL to HZH).
+    // 9.4.4.2. Self-test Judgment:
+    //   If measurement data read by the above sequence is within the following ranges,
+    //   AK09915 is working normally:
+    //     - HX[15:0] bits: -200 ≤ HX ≤ +200
+    //     - HY[15:0] bits: -200 ≤ HY ≤ +200
+    //     - HZ[15:0] bits: -800 ≤ HZ ≤ -200
 
     pub fn self_test(&mut self) -> Result<(), E> {
         self.set_mode(Mode::SelfTest)?;
