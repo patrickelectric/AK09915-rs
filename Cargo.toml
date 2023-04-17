@@ -5,3 +5,8 @@ edition = "2021"
 
 [dependencies]
 embedded-hal = "0.2.5"
+
+[dev-dependencies]
+embedded-hal-mock = "0.9.0"
+clap = { version = "4.2.2", features = ["derive"] }
+linux-embedded-hal = "0.3.2"
