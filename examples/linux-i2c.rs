@@ -20,28 +20,22 @@ fn main() {
         println!("Self test -  OK");
     }
 
-    println!("Test 5 single measurement, and 5 without set single measurement(test data ready");
+    println!("Test 5 single measurement");
     for _n in 1..=5 {
         sensor.set_mode(Mode::Single).unwrap();
-        if sensor.is_data_ready().unwrap() {
-            let (x, y, z) = sensor.read_mag().unwrap();
-            println!("Magnetometer: x={}, y={}, z={}", x, y, z);
-        }
+        let (x, y, z) = sensor.read().unwrap();
+        println!("Magnetometer: x={}, y={}, z={}", x, y, z);
     }
-    println!("Test 5 measurement, without set single measurement(test data ready");
+    println!("Test 5 measurement, without set single measurement(no updates)");
     for _n in 1..=5 {
-        if sensor.is_data_ready().unwrap() {
-            let (x, y, z) = sensor.read_mag().unwrap();
-            println!("Magnetometer: x={}, y={}, z={}", x, y, z);
-        }
+        let (x, y, z) = sensor.read_unchecked().unwrap();
+        println!("Magnetometer: x={}, y={}, z={}", x, y, z);
     }
     println!("Test 5 measurement, using continuous mode");
     sensor.set_mode(Mode::Cont200Hz).unwrap();
     for _n in 1..=5 {
-        if sensor.is_data_ready().unwrap() {
-            let (x, y, z) = sensor.read_mag().unwrap();
-            println!("Magnetometer: x={}, y={}, z={}", x, y, z);
-        }
-        std::thread::sleep(std::time::Duration::from_micros(1000));
+        let (x, y, z) = sensor.read().unwrap();
+        println!("Magnetometer: x={}, y={}, z={}", x, y, z);
+        std::thread::sleep(std::time::Duration::from_secs(1 / 200));
     }
 }
