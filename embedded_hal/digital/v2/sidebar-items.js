@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":[["PinState","Digital output pin state"]],"trait":[["OutputPin","Single digital push-pull output pin"]]};
+window.SIDEBAR_ITEMS = {"enum":["PinState"],"trait":["OutputPin"]};
